@@ -8,9 +8,9 @@ Django REST API με σχέσεις μεταξύ πινάκων (ForeignKey, Man
 
 ```
 library_service/
-    manage.py
-    library_service/       ← settings package
-        settings.py
+    manrary_service/       ← settings package
+       age.py
+    lib settings.py
         urls.py             ← κεντρικό urls.py
     library/                ← το app μας
         models.py

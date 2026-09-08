@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'library'
+    'library',
+    'drf_spectacular',  # Add drf_spectacular to the installed apps for swagger documentation
 ]
 
 MIDDLEWARE = [
@@ -126,4 +127,14 @@ MAILERS = {
     'default': {
         'BACKEND': 'django.core.mail.backends.console.EmailBackend',
     },
+}
+
+REST_FRAMEWORK = {  # Add this section to configure DRF settings
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = { # Add this section to configure drf_spectacular settings
+    'TITLE': 'Library Service API',
+    'DESCRIPTION': 'API for managing library resources and operations.',
+    'VERSION': '1.0.0',
 }
