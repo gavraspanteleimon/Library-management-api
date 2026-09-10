@@ -1,5 +1,5 @@
 from rest_framework.routers import DefaultRouter
-from .views import AuthorViewSet, BookViewSet, MemberViewSet, LoanViewSet, CategoryViewSet
+from .views import AuthorViewSet, BookViewSet, MemberRegistrationViewSet, MemberViewSet, LoanViewSet, CategoryViewSet
 from rest_framework_simplejwt.views import ( 
     TokenObtainPairView,
     TokenRefreshView,)
@@ -16,5 +16,6 @@ router.register(r'categories', CategoryViewSet)
 urlpatterns= [
 path('token/',TokenObtainPairView.as_view(),name ='token_obtain_pair'),
 path('token/refresh/',TokenRefreshView.as_view(),name='token_refresh'),
+path('register/', MemberRegistrationViewSet.as_view(), name='member-register'),  # Add this line for member registration
 
 ] + router.urls
