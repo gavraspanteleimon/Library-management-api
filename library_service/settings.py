@@ -129,8 +129,22 @@ MAILERS = {
     },
 }
 
-REST_FRAMEWORK = {  # Add this section to configure DRF settings
+
+REST_FRAMEWORK = { # Add this section to configure DRF settings, + JWT Authentication
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+from datetime import timedelta # kalei klasi timedelta gia na orisw akribws tin wra
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME' : timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1)
 }
 
 SPECTACULAR_SETTINGS = { # Add this section to configure drf_spectacular settings
