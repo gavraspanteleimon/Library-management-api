@@ -1,3 +1,5 @@
+from enum import member
+
 from rest_framework import serializers
 from .models import Author, Book, Member, Loan, Category
 from django.contrib.auth.models import User
@@ -29,20 +31,23 @@ class LoanSerializer(serializers.ModelSerializer):
 
 
 class MemberRegistrationSerializer(serializers.Serializer):
-    username = serializers.CharField(required=True)
+    username = serializers.CharField()
     password = serializers.CharField(write_only=True)
-    phone = serializers.CharField(required=True)
+    phone = serializers.CharField()
     address = serializers.CharField(required=False, allow_blank=True)
 
-
-    
-
     def create(self, validated_data):
-        username = validated_data.pop['username']
-        password = validated_data.pop['password']
-        phone = validated_data['phone']
-        address = validated_data.get('address', '')
+        username = validated_data.pop('username')
+        password = validated_data.pop('password')
 
         user = User.objects.create_user(username=username, password=password)
         member = Member.objects.create(user=user, **validated_data)
         return member
+
+    def to_representation(self, instance):
+        return {
+            'id': instance.id,
+            'username': instance.user.username,  # ρητά: πήγαινε ΜΕΣΑ στη σχέση
+            'phone': instance.phone,
+            'address': instance.address,
+        }
