@@ -25,10 +25,14 @@ class MemberSerializer(serializers.ModelSerializer):
         fields = ['user', 'phone', 'address']
 
 class LoanSerializer(serializers.ModelSerializer):
+    book_details = BookSerializer(source='book', read_only=True)           # ta balame gia na fainetai to onoma tou vivliou kai to onoma tou member sto loan  
+    member_name = serializers.SerializerMethodField()    # ta balame gia na fainetai to onoma tou vivliou kai to onoma tou member sto loan  
     class Meta:
         model = Loan
-        fields = ['book', 'member', 'loan_date', 'return_date', 'is_returned']
+        fields = ['id','book','book_details','member','member_name', 'loan_date', 'return_date', 'is_returned']
 
+    def get_member_name(self, obj):
+        return obj.member.user.username
 
 class MemberRegistrationSerializer(serializers.Serializer):
     username = serializers.CharField()
